@@ -4,6 +4,7 @@ export interface IProductCard {
     description: string
     price: number
     image: string
+    category: string
 }
 
 export interface IProductCardSmall {
@@ -18,3 +19,5 @@ export interface IProductCardBasket {
     name: string
     price: number
 }
+
+
