@@ -8,7 +8,7 @@ export class Card {
     protected image: HTMLElement;
 
     constructor (template: HTMLTemplateElement) {
-        this.itemElement = template.content.querySelector('.card-catalog').cloneNode(true) as HTMLElement;
+        this.itemElement = template.content.querySelector('.card').cloneNode(true) as HTMLElement;
         this.title = this.itemElement.querySelector('.card__title');
         this.price = this.itemElement.querySelector('.card__price');
         this.category = this.itemElement.querySelector('.card__category');

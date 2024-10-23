@@ -1,6 +1,6 @@
 export interface IProductCard {
-    id: number
-    name: string
+    id: string
+    title: string
     description: string
     price: number
     image: string
