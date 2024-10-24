@@ -7,17 +7,4 @@ export interface IProductCard {
     category: string
 }
 
-export interface IProductCardSmall {
-    id: number
-    name: string
-    price: number
-    image: string
-}
-
-export interface IProductCardBasket {
-    id: number
-    name: string
-    price: number
-}
-
 
