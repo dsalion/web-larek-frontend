@@ -57,6 +57,7 @@ events.on('cards:chosen', (card:  any) => {
             title: chosenCard.title,
             description: chosenCard.description,
            // price: chosenCard.price !== null ? `${chosenCard.price} Cинапсов` : 'Бесплатно',
+           category: chosenCard.category,
            image: chosenCard.image
         }
             
