@@ -17,5 +17,9 @@ export class CardsData implements ICardsData{
         get cards(): IProductCard[] {
             return this._cards;
         }
+        getCard(item: string): IProductCard {
+            return this._cards.find(card => card.id === item);
+        }
+
 
 }

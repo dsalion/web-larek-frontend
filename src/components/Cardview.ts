@@ -1,6 +1,7 @@
 import { IEvents } from '../components/base/events';
 import { IProductCard, ICard } from '../types/model/productCard';
-export class Card {
+import { Component } from './base/Component';
+export class Card extends Component<IProductCard>{
 
     protected itemElement: HTMLElement;
     protected element: HTMLElement;
@@ -9,8 +10,10 @@ export class Card {
     protected category: HTMLElement;
     protected image: HTMLElement;
     protected events: IEvents
+    protected id: string
 
     constructor (template: HTMLTemplateElement, events: IEvents) {
+        super(template)
         this.itemElement = template.content.querySelector('.card').cloneNode(true) as HTMLElement;
         this.title = this.itemElement.querySelector('.card__title');
         this.price = this.itemElement.querySelector('.card__price');
@@ -28,7 +31,11 @@ export class Card {
         this.price.textContent = data.price;
         this.category.textContent = data.category;
         this.image.setAttribute('src', data.image);
-        
+        this.id = data.id
         return this.itemElement;
     }
+
+   
+
+   
 }

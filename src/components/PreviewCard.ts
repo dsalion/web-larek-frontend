@@ -1,7 +1,7 @@
 import { IProductCard } from "../types/model/productCard"
 import { Component } from "./base/Component"
 import { IEvents } from "./base/events"
-
+import { ICard } from "../types/model/productCard"
 interface CardPreview {
     id: string
     title: string
@@ -21,6 +21,8 @@ export class PreviewCard extends Component<CardPreview>{
     protected _price: HTMLElement
     protected events: IEvents
     protected itemElement: HTMLElement;
+    
+   
 
     constructor(container: HTMLElement, events: IEvents) {
         super(container)
@@ -33,9 +35,23 @@ export class PreviewCard extends Component<CardPreview>{
         this._button = container.querySelector(`.card__button`);
     }
     
-    set title(text: string) {
-        this.setText(this._title, text);
+    set description(value: string) {
+        this._description.textContent = value
+      }
+    
+    set title(value: string) {
+        this._title.textContent = value
+    } 
+
+    set category(value: string) {
+        this._category.textContent = value
     }
 
-    
+    set price(value: string) {
+        this._price.textContent = value
+    }
+
+    set image(value: string) {
+        this._image.setAttribute('src', value);
+    }
 }

@@ -3,7 +3,7 @@ import { Card } from "./components/Cardview";
 
 import { ApiHelper } from "./components/apiHelper";
 import { CDN_URL, API_URL } from "./utils/constants";
-import { IProductCard } from "./types/model/productCard";
+import { IPreviewCard, IProductCard } from "./types/model/productCard";
 import { CardsData } from './components/CardsData';
 import { EventEmitter, IEvents } from './components/base/events';
 import { Modal } from './components/common/Modal';
@@ -20,7 +20,7 @@ const cardArray = new CardsData(events)
 
 const modal = new Modal(ensureElement<HTMLElement>('#modal-container'), events);
 const previewcard = new PreviewCard(ensureElement<HTMLElement>('.card_full'), events)
-
+const pagelock = document.querySelector('.page__wrapper')
 
 api
     .getCards()
@@ -41,41 +41,43 @@ events.on('cards:added', () => {
                 title: item.title,
                 price: item.price !== null ? `${item.price} Cинапсов` : 'Бесплатно',
                 category: item.category,
-                image: item.image 
+                image: item.image, 
+                id: item.id
             });
             cardContainer.appendChild(cardElement);
         });
     });
 
-events.on('cards:chosen', (data : {card: IProductCard}) => {
-    modal.render({
-        content: createElement<HTMLElement>('div', {}, [
+    
+
+events.on('cards:chosen', (card:  any) => {
+    const chosenCard = cardArray.getCard(card.card.id)
+    modal.render(
+        {content: previewcard.render( {
+            title: chosenCard.title,
+            description: chosenCard.description,
+           // price: chosenCard.price !== null ? `${chosenCard.price} Cинапсов` : 'Бесплатно',
+           image: chosenCard.image
+        }
             
+        ) }
+    )
+   
+             
             
-    ]) 
-}), console.log(data)
+    
+    
+
+
+
+console.log(chosenCard)
+console.log(card)
 })   
-/* api
-    .getCards()
-    .then((cards) => {
-        
-       
-        cards.forEach((item) => {
-            
-            const card = new Card(template);
-            const cardElement = card.render({
-                title: item.title,
-                price: item.price !== null ? `${item.price} Cинапсов` : 'Бесплатно',
-                category: item.category,
-                image: item.image 
-            });
-            cardContainer.appendChild(cardElement);
-        });
-    })
-    .catch((error) => {
-        console.log(222, error);
-    });
 
-*/
+
+events.on('modal:open', () => {pagelock.classList.add('page__wrapper_locked')})
+events.on('modal:close', () => {pagelock.classList.remove('page__wrapper_locked')})
+    
+
 
 console.log(111, cardArray)
