@@ -1,5 +1,5 @@
-import { Api, ApiListResponse } from "../base/api";
-import { IProductCard } from "../../types/model/productCard";
+import { Api, ApiListResponse } from "./base/api";
+import { IProductCard } from "../types/model/productCard";
 
 interface IProductCardApi  {
     getCards: () => Promise<IProductCard[]>

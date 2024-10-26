@@ -19,6 +19,7 @@ export class Modal extends Component<IModalData> {
         this._closeButton.addEventListener('click', this.close.bind(this));
         this.container.addEventListener('click', this.close.bind(this));
         this._content.addEventListener('click', (event) => event.stopPropagation());
+        this.handleEscUp = this.handleEscUp.bind(this);
     }
 
     set content(value: HTMLElement) {
@@ -27,6 +28,7 @@ export class Modal extends Component<IModalData> {
 
     open() {
         this.container.classList.add('modal_active');
+        document.addEventListener("keyup", this.handleEscUp);
         this.events.emit('modal:open');
     }
 
@@ -41,4 +43,10 @@ export class Modal extends Component<IModalData> {
         this.open();
         return this.container;
     }
+
+    handleEscUp (evt: KeyboardEvent) {
+        if (evt.key === "Escape") {
+          this.close();
+        }
+      };
 }

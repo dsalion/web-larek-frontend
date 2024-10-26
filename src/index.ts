@@ -1,13 +1,14 @@
 import './scss/styles.scss';
-import { Card } from "./components/common/Cardview";
+import { Card } from "./components/Cardview";
 
-import { ApiHelper } from "./components/common/apiHelper";
+import { ApiHelper } from "./components/apiHelper";
 import { CDN_URL, API_URL } from "./utils/constants";
 import { IProductCard } from "./types/model/productCard";
-import { CardsData } from './components/common/CardsData';
+import { CardsData } from './components/CardsData';
 import { EventEmitter, IEvents } from './components/base/events';
 import { Modal } from './components/common/Modal';
 import { ensureElement, createElement } from './utils/utils';
+import { PreviewCard } from './components/PreviewCard';
 
 const api = new ApiHelper(CDN_URL, API_URL);
 const events: IEvents = new EventEmitter();
@@ -18,6 +19,7 @@ const cardContainer = document.querySelector('.gallery') as HTMLElement;
 const cardArray = new CardsData(events)
 
 const modal = new Modal(ensureElement<HTMLElement>('#modal-container'), events);
+const previewcard = new PreviewCard(ensureElement<HTMLElement>('.card_full'), events)
 
 
 api
@@ -45,13 +47,13 @@ events.on('cards:added', () => {
         });
     });
 
-events.on('cards:chosen', () => {
+events.on('cards:chosen', (data : {card: IProductCard}) => {
     modal.render({
         content: createElement<HTMLElement>('div', {}, [
             
             
-        ])
-    });
+    ]) 
+}), console.log(data)
 })   
 /* api
     .getCards()

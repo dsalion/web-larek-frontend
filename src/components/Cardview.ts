@@ -1,4 +1,5 @@
-import { IEvents } from '../../components/base/events';
+import { IEvents } from '../components/base/events';
+import { IProductCard, ICard } from '../types/model/productCard';
 export class Card {
 
     protected itemElement: HTMLElement;
@@ -17,12 +18,12 @@ export class Card {
         this.image = this.itemElement.querySelector('.card__image')
         this.events = events;
         this.itemElement.addEventListener('click', () => {
-            this.events.emit('cards:chosen')
+            this.events.emit('cards:chosen', { card: this })
         })
 
 }
 
-    render(data: {title: string, price: string, category: string, image: string}) {
+    render(data: ICard) {
         this.title.textContent = data.title;
         this.price.textContent = data.price;
         this.category.textContent = data.category;

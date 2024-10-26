@@ -1,6 +1,6 @@
-import { ICardsData } from "../../types/model/cardsData";
-import { IProductCard } from "../../types/model/productCard";
-import { IEvents } from "../../components/base/events";
+import { ICardsData } from "../types/model/cardsData";
+import { IProductCard } from "../types/model/productCard";
+import { IEvents } from "./base/events";
 
 export class CardsData implements ICardsData{
 
