@@ -35,6 +35,7 @@ export class PreviewCard extends Component<CardPreview>{
         this._image = container.querySelector('.card__image')
         this._button = container.querySelector(`.button`);
         
+        
         this._button.addEventListener('click', () => {
             this.events.emit('product:addedtobasket', {data: this})
         })

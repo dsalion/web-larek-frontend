@@ -18,11 +18,13 @@ const events: IEvents = new EventEmitter();
 const template = document.querySelector('#card-catalog') as HTMLTemplateElement; 
 const cardContainer = document.querySelector('.gallery') as HTMLElement;
 
+const templateBasket = document.querySelector('#basket') as HTMLTemplateElement;
+
 const cardArray = new CardsData(events)
 
 const modal = new Modal(ensureElement<HTMLElement>('#modal-container'), events);
 const previewcard = new PreviewCard(ensureElement<HTMLElement>('.card_full'), events)
-const previewcard2 = new PreviewCard(ensureElement<HTMLElement>('.basket'), events)
+
 const pagelock = document.querySelector('.page__wrapper')
 
 const basket = new BasketData(events)
@@ -30,7 +32,7 @@ const basket = new BasketData(events)
 const iconBasket = document.querySelector('.header__basket')
 
 
-const basketView = new BasketView(ensureElement<HTMLElement>('.basket'), events)
+const basketView = new BasketView(templateBasket, events)
 
 api
     .getCards()
@@ -94,12 +96,15 @@ events.on('product:addedtobasket', (data: any) => {
 
 
 iconBasket.addEventListener('click', ()=> {
+   
     modal.render( {
         content: basketView.render()
 
         })
     })
 
+
+events.on('basket:addedToOrder', () => {console.log('lalala')})
 
 
 console.log('basket:',basket.products)
