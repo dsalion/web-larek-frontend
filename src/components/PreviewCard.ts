@@ -21,6 +21,7 @@ export class PreviewCard extends Component<CardPreview>{
     protected _price: HTMLElement
     protected events: IEvents
     protected itemElement: HTMLElement;
+    protected _id: string
     
    
 
@@ -32,7 +33,11 @@ export class PreviewCard extends Component<CardPreview>{
         this._description = container.querySelector('.card__text')
         this._price = container.querySelector('.card__price')
         this._image = container.querySelector('.card__image')
-        this._button = container.querySelector(`.card__button`);
+        this._button = container.querySelector(`.button`);
+        
+        this._button.addEventListener('click', () => {
+            this.events.emit('product:addedtobasket', {data: this})
+        })
     }
     
     set description(value: string) {
@@ -48,10 +53,18 @@ export class PreviewCard extends Component<CardPreview>{
     }
 
     set price(value: string) {
-        this._price.textContent = value
+        this._price.textContent = value !== null ? `${value} Cинапсов` : 'Бесценно'
     }
 
     set image(value: string) {
         this._image.setAttribute('src', value);
+    }
+
+    set id(value: string) {
+        this._id = value
+    }
+
+    buttonDisable() {
+         
     }
 }

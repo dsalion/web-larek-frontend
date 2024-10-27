@@ -9,6 +9,8 @@ import { EventEmitter, IEvents } from './components/base/events';
 import { Modal } from './components/common/Modal';
 import { ensureElement, createElement } from './utils/utils';
 import { PreviewCard } from './components/PreviewCard';
+import { BasketData } from './components/BasketData';
+import { BasketView } from './components/BasketView';
 
 const api = new ApiHelper(CDN_URL, API_URL);
 const events: IEvents = new EventEmitter();
@@ -20,7 +22,15 @@ const cardArray = new CardsData(events)
 
 const modal = new Modal(ensureElement<HTMLElement>('#modal-container'), events);
 const previewcard = new PreviewCard(ensureElement<HTMLElement>('.card_full'), events)
+const previewcard2 = new PreviewCard(ensureElement<HTMLElement>('.basket'), events)
 const pagelock = document.querySelector('.page__wrapper')
+
+const basket = new BasketData(events)
+
+const iconBasket = document.querySelector('.header__basket')
+
+
+const basketView = new BasketView(ensureElement<HTMLElement>('.basket'), events)
 
 api
     .getCards()
@@ -39,12 +49,13 @@ events.on('cards:added', () => {
             const card = new Card(template, events);
             const cardElement = card.render({
                 title: item.title,
-                price: item.price !== null ? `${item.price} Cинапсов` : 'Бесплатно',
+                price: item.price,
                 category: item.category,
                 image: item.image, 
                 id: item.id
             });
             cardContainer.appendChild(cardElement);
+            console.log(555, card)
         });
     });
 
@@ -56,29 +67,40 @@ events.on('cards:chosen', (card:  any) => {
         {content: previewcard.render( {
             title: chosenCard.title,
             description: chosenCard.description,
-           // price: chosenCard.price !== null ? `${chosenCard.price} Cинапсов` : 'Бесплатно',
+            price: chosenCard.price,
            category: chosenCard.category,
-           image: chosenCard.image
+           image: chosenCard.image,
+           id: chosenCard.id
         }
             
-        ) }
+        )}
     )
-   
-             
-            
-    
-    
-
-
-
-console.log(chosenCard)
-console.log(card)
 })   
 
 
 events.on('modal:open', () => {pagelock.classList.add('page__wrapper_locked')})
 events.on('modal:close', () => {pagelock.classList.remove('page__wrapper_locked')})
+
+
+events.on('product:addedtobasket', (data: any) => {
+    const chosenCard = cardArray.getCard(data.data._id)
+    console.log(chosenCard)
+    basket.addToBasket(chosenCard)
+
+    console.log('basket2:',basket.products)
     
+}
+) 
 
 
+iconBasket.addEventListener('click', ()=> {
+    modal.render( {
+        content: basketView.render()
+
+        })
+    })
+
+
+
+console.log('basket:',basket.products)
 console.log(111, cardArray)
