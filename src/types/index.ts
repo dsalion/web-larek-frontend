@@ -9,4 +9,5 @@ export interface IOrderForm {
 export interface IBasketView {
     products: IProductsBasket []
     total: number
+    
 }

@@ -1,5 +1,6 @@
 import { IProductCard } from "../types/model/productCard";
 import { IEvents } from "./base/events";
+import { BasketView } from "./BasketView";
 
 interface IBasketData {
     products: IProductCard[]
@@ -30,7 +31,7 @@ export class BasketData implements IBasketData {
             this._products.push(item)
             this.events.emit('basket:added', {id: item.id})
         }
-
+        
     }
 
     delFromBasket(id: string): void {

@@ -18,7 +18,7 @@ const events: IEvents = new EventEmitter();
 const template = document.querySelector('#card-catalog') as HTMLTemplateElement; 
 const cardContainer = document.querySelector('.gallery') as HTMLElement;
 
-const templateBasket = document.querySelector('#basket') as HTMLTemplateElement;
+const templateBasket = document.querySelector('.basket') as HTMLTemplateElement;
 
 const cardArray = new CardsData(events)
 
@@ -29,10 +29,15 @@ const pagelock = document.querySelector('.page__wrapper')
 
 const basket = new BasketData(events)
 
+
+
 const iconBasket = document.querySelector('.header__basket')
 
 
-const basketView = new BasketView(templateBasket, events)
+
+const basketView = new BasketView(templateBasket, events, basket)
+
+
 
 api
     .getCards()
@@ -63,8 +68,8 @@ events.on('cards:added', () => {
 
     
 
-events.on('cards:chosen', (card:  any) => {
-    const chosenCard = cardArray.getCard(card.card.id)
+events.on('cards:chosen', (card: IProductCard) => {
+    const chosenCard = cardArray.getCard(card.id)
     modal.render(
         {content: previewcard.render( {
             title: chosenCard.title,
@@ -77,6 +82,7 @@ events.on('cards:chosen', (card:  any) => {
             
         )}
     )
+    console.log('1232222',card)
 })   
 
 
@@ -84,8 +90,9 @@ events.on('modal:open', () => {pagelock.classList.add('page__wrapper_locked')})
 events.on('modal:close', () => {pagelock.classList.remove('page__wrapper_locked')})
 
 
-events.on('product:addedtobasket', (data: any) => {
-    const chosenCard = cardArray.getCard(data.data._id)
+events.on('product:addedtobasket', (data: IProductCard) => {
+    console.log('addeddata',data)
+    const chosenCard = cardArray.getCard(data.id)
     console.log(chosenCard)
     basket.addToBasket(chosenCard)
 
