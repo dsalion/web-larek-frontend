@@ -31,6 +31,9 @@ export class BasketView extends Component<IBasketView> {
         events.on('basket:added', () => {
             this.updateList()
         })
+        events.on('basket:delItem', () => {
+            this.updateList()
+        })
     }
 
     private createCardHTML(product: IProductCard): string {
@@ -49,14 +52,25 @@ export class BasketView extends Component<IBasketView> {
         if (this.basketData.products.length) {
             this.basketData.products.forEach(product => {
                 this._cards.innerHTML += this.createCardHTML(product)
+                this._button.textContent = 'Оформить';
+                this._button.disabled = false;
             })
             this._emptyText.style.display = 'none'
         } else {
             this._emptyText.textContent = 'Корзина пуста'
             this._emptyText.style.display = 'block'
+            this._button.textContent = 'Добавьте товары в корзину';
+            this._button.disabled = true;
         }
         this._total.textContent = `${this.basketData.getSum()} синапсов`
-        console.log('updateList',this._cards)
+        
+        const deleteButtons = this._cards.querySelectorAll('.basket__item-delete');
+    deleteButtons.forEach((button, index) => {
+        button.addEventListener('click', () => {
+            
+            this.basketData.delFromBasket(this.basketData.products[index].id);
+        });
+    });
     }
 
     set total(value: string) {
@@ -72,24 +86,10 @@ export class BasketView extends Component<IBasketView> {
         }
     }
 
-   /* render(data: BasketData): HTMLElement {
-        Object.assign(this as object, data);
-        this.updateList();
-        return this.container;
-    }*/
+  
 }
 
-export class BasketItemView extends Component<IBasketView> {
 
-    protected _element: HTMLElement
-    protected events: IEvents
-
-    constructor(template: HTMLTemplateElement, events: IEvents) {
-        super(template)
-        this.events = events
-        this._element = template.content.querySelector('.basket__item').cloneNode(true) as HTMLElement;
-    }
-} 
 
 /*  export class BasketView extends Component<IBasketView> {
 

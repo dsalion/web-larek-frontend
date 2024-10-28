@@ -72,6 +72,7 @@ export class PreviewCard extends Component<CardPreview> {
 	}
 
 	set price(value: string) {
+        value !== null ? this._button.disabled = false : this._button.disabled = true;
 		this._price.textContent = value !== null ? `${value} Cинапсов` : 'Бесценно';
 	}
 

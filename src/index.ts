@@ -37,7 +37,7 @@ const iconBasket = document.querySelector('.header__basket')
 
 const basketView = new BasketView(templateBasket, events, basket)
 
-
+const headerBasketContent = document.querySelector('.header__basket-counter')
 
 api
     .getCards()
@@ -93,13 +93,13 @@ events.on('modal:close', () => {pagelock.classList.remove('page__wrapper_locked'
 events.on('product:addedtobasket', (data: IProductCard) => {
     console.log('addeddata',data)
     const chosenCard = cardArray.getCard(data.id)
-    console.log(chosenCard)
     basket.addToBasket(chosenCard)
-
-    console.log('basket2:',basket.products)
-    
-}
+    headerBasketContent.textContent = basket.products.length.toString()}
 ) 
+
+events.on('basket:delItem', () => {
+    headerBasketContent.textContent = basket.products.length.toString()
+})
 
 
 iconBasket.addEventListener('click', ()=> {
