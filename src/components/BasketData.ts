@@ -44,6 +44,9 @@ export class BasketData implements IBasketData {
         return this._products.map((item) => item.price).reduce((a,b) => a + b)
     }
 
+    convertToArrayId(value: IProductCard[]): string[] {
+        return value.map((item) => item.id)
+    }
     clear(): void {
         this._products = []
     }

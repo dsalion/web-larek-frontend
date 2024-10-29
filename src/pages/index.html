@@ -226,11 +226,12 @@
 				<label class="order__field">
 					<span class="form__label modal__title">Адрес доставки</span>
 					<input name="address" class="form__input" type="text" placeholder="Введите адрес" />
+					<span class="form__error"></span>
 				</label>
 			</div>
 			<div class="modal__actions">
 				<button type="submit" disabled class="button order__button">Далее</button>
-				<span class="form__errors"></span>
+				
 			</div>
 		</form>
 	</template>
@@ -241,10 +242,12 @@
 				<label class="order__field">
 					<span class="form__label modal__title">Email</span>
 					<input name="email" class="form__input" type="text" placeholder="Введите Email" />
+					<span class="form__error form__error_email"></span>
 				</label>
 				<label class="order__field">
 					<span class="form__label modal__title">Телефон</span>
 					<input name="phone" class="form__input" type="text" placeholder="+7 (" />
+					<span class="form__error form__error_phone"></span>
 				</label>
 			</div>
 			<div class="modal__actions">

@@ -3,8 +3,8 @@ import { IEvents } from "./base/events"
 
 export class OrderData {
     
-    protected _items: []
-    protected _payment: string
+    protected _items: string[]
+    protected _payment = 'offline'
     protected _email: string
     protected _phone: string
     protected _address: string
@@ -15,12 +15,20 @@ export class OrderData {
             this.events = events
         }
 
-    set items(value: []) {
+    set items(value: string[]) {
         this._items = value
+    }
+
+    get items(): string[] {
+        return this._items
     }
 
     set payment(value: string) {
         this._payment = value
+    }
+
+    get payment(): string {
+        return this._payment
     }
 
     set email(value: string) {
@@ -39,5 +47,7 @@ export class OrderData {
         this._total = value
     }
 
-    
+    get total(): number {
+        return this._total
+    }
 }

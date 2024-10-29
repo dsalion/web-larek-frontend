@@ -11,3 +11,16 @@ export interface IBasketView {
     total: number
     
 }
+
+export interface IAddressFormView {
+    address: HTMLInputElement
+    buttonOnline: HTMLButtonElement
+    buttonOffline: HTMLButtonElement
+    buttonSubmit: HTMLButtonElement
+}
+
+export interface IContactsFormView {
+    formEmail: HTMLFormElement
+    formPhone: HTMLFormElement
+    button: HTMLButtonElement
+}

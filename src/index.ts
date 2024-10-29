@@ -11,6 +11,10 @@ import { ensureElement, createElement } from './utils/utils';
 import { PreviewCard } from './components/PreviewCard';
 import { BasketData } from './components/BasketData';
 import { BasketView } from './components/BasketView';
+import { OrderData } from './components/OrderData';
+import { FormsView } from './components/AddressFormView';
+import { cloneTemplate } from './utils/utils';
+import { ContactsFormView } from './components/ContactsFormView';
 
 const api = new ApiHelper(CDN_URL, API_URL);
 const events: IEvents = new EventEmitter();
@@ -38,6 +42,14 @@ const iconBasket = document.querySelector('.header__basket')
 const basketView = new BasketView(templateBasket, events, basket)
 
 const headerBasketContent = document.querySelector('.header__basket-counter')
+
+const order = new OrderData(events)
+
+const addressTemplate= document.getElementById('order') 
+const formAddress = new FormsView(cloneTemplate(addressTemplate as HTMLTemplateElement), events)
+
+const contactsTemplate= document.getElementById('contacts') 
+const formContacts = new ContactsFormView(cloneTemplate(contactsTemplate as HTMLTemplateElement), events)
 
 api
     .getCards()
@@ -111,8 +123,27 @@ iconBasket.addEventListener('click', ()=> {
     })
 
 
-events.on('basket:addedToOrder', () => {console.log('lalala')})
+events.on('basket:addedToOrder', (data: IProductCard[]) => {
+    order.items = basket.convertToArrayId(data)
+    order.total = basket.getSum()
+    modal.close()
+   modal.render({content: formAddress.render()})
+    console.log('order:',order.items)
+    console.log('total:',order.total)
+})
 
 
-console.log('basket:',basket.products)
-console.log(111, cardArray)
+events.on('form:online', () => {
+    order.payment = 'online'
+    
+})
+
+events.on('form:offline', () => {
+    order.payment = 'offline'
+    
+})
+
+events.on('form:submit', () => {
+    modal.close()
+    modal.render({content: formContacts.render()})
+})

@@ -9,6 +9,10 @@
   &__label {
     flex-grow: 1;
   }
+  &__error {
+    color: $error;
+    
+  }
 
   &__input {
     background: transparent;
@@ -33,5 +37,7 @@
     &::placeholder {
       color: lighten($primaryLight, 23%);
     }
+
+    
   }
 }

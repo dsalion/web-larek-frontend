@@ -25,7 +25,7 @@ export class BasketView extends Component<IBasketView> {
         this._total = template.querySelector('.basket__price')
         this._emptyText = template.querySelector('.basket__empty') as HTMLElement
         this._button.addEventListener('click', () => {
-            this.events.emit('basket:addedToOrder')
+            this.events.emit('basket:addedToOrder', basketData.products)
         })
         this.updateList()
         events.on('basket:added', () => {
