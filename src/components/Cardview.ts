@@ -1,5 +1,5 @@
 import { IEvents } from '../components/base/events';
-import { IProductCard, ICard } from '../types/model/productCard';
+import { ICard, IProductCard } from '../types';
 import { Component } from './base/Component';
 
 export class Card extends Component<IProductCard> {
@@ -23,7 +23,7 @@ export class Card extends Component<IProductCard> {
 		this.image = this.itemElement.querySelector('.card__image');
 		this.events = events;
 		this.itemElement.addEventListener('click', () => {
-			this.events.emit('cards:chosen',  this );
+			this.events.emit('cards:chosen', this);
 		});
 	}
 

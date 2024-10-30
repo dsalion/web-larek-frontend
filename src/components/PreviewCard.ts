@@ -1,7 +1,5 @@
-import { IProductCard } from '../types/model/productCard';
 import { Component } from './base/Component';
 import { IEvents } from './base/events';
-import { ICard } from '../types/model/productCard';
 interface CardPreview {
 	id: string;
 	title: string;
@@ -31,12 +29,9 @@ export class PreviewCard extends Component<CardPreview> {
 		this._price = container.querySelector('.card__price');
 		this._image = container.querySelector('.card__image');
 		this._button = container.querySelector(`.button`);
-        
-        
+
 		this._button.addEventListener('click', () => {
-            
-            
-			this.events.emit('product:addedtobasket', this );
+			this.events.emit('product:addedtobasket', this);
 		});
 	}
 
@@ -72,7 +67,9 @@ export class PreviewCard extends Component<CardPreview> {
 	}
 
 	set price(value: string) {
-        value !== null ? this._button.disabled = false : this._button.disabled = true;
+		value !== null
+			? (this._button.disabled = false)
+			: (this._button.disabled = true);
 		this._price.textContent = value !== null ? `${value} Cинапсов` : 'Бесценно';
 	}
 
@@ -84,7 +81,7 @@ export class PreviewCard extends Component<CardPreview> {
 		this._id = value;
 	}
 
-    get id(){
-        return this._id
-    }
+	get id() {
+		return this._id;
+	}
 }
