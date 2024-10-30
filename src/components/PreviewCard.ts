@@ -17,7 +17,6 @@ export class PreviewCard extends Component<CardPreview> {
 	protected _button: HTMLButtonElement;
 	protected _price: HTMLElement;
 	protected events: IEvents;
-	protected itemElement: HTMLElement;
 	protected _id: string;
 
 	constructor(container: HTMLElement, events: IEvents) {

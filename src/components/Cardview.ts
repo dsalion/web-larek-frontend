@@ -4,7 +4,7 @@ import { Component } from './base/Component';
 
 export class Card extends Component<IProductCard> {
 	protected itemElement: HTMLElement;
-	protected element: HTMLElement;
+	//protected element: HTMLElement;
 	protected title: HTMLElement;
 	protected price: HTMLElement;
 	protected category: HTMLElement;
