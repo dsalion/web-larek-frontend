@@ -1,6 +1,12 @@
 import { Component } from './base/Component';
-import { IAddressFormView } from '../types';
 import { IEvents } from './base/events';
+
+interface IAddressFormView {
+    address: HTMLInputElement
+    buttonOnline: HTMLButtonElement
+    buttonOffline: HTMLButtonElement
+    buttonSubmit: HTMLButtonElement
+}
 
 export class FormsView extends Component<IAddressFormView> {
 	protected element: HTMLElement;

@@ -24,25 +24,6 @@ export interface Basket {
     products: IProductCard[]
 }
 
-export interface IBasketView {
-    products: IProductsBasket []
-    total: number
-    
-}
-
-export interface IAddressFormView {
-    address: HTMLInputElement
-    buttonOnline: HTMLButtonElement
-    buttonOffline: HTMLButtonElement
-    buttonSubmit: HTMLButtonElement
-}
-
-export interface IContactsFormView {
-    formEmail: HTMLFormElement
-    formPhone: HTMLFormElement
-    button: HTMLButtonElement
-}
-
 export type address = {
     address: string
 }
@@ -59,18 +40,6 @@ export interface IOrderDataPost {
     phone: string
     address: string
     total: number
-}
-
-export interface IOrderData {
-    items: string[]
-    payment: string
-    email: string
-    phone: string
-    address: string
-    total: number
-    totalResponse: number
-    getOrder(): IOrderDataPost
-    clear(): void
 }
 
 export interface IOrderResponse {

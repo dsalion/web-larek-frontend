@@ -1,10 +1,14 @@
 import { Component } from './base/Component';
-import { IBasketView } from '../types';
 import { IEvents } from './base/events';
 import { BasketData } from './BasketData';
 import { IProductCard } from '../types';
 
-export class BasketView extends Component<IBasketView> {
+export interface IBasket {
+    cards: string
+    total: number  
+}
+
+export class BasketView extends Component<IBasket> {
 	protected _cards: HTMLUListElement;
 	protected _button: HTMLButtonElement;
 	protected _total: HTMLElement;

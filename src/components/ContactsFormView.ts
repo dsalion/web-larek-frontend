@@ -1,6 +1,12 @@
-import { IContactsFormView } from '../types';
 import { Component } from './base/Component';
 import { IEvents } from './base/events';
+
+interface IContactsFormView {
+    formEmail: HTMLFormElement
+    formPhone: HTMLFormElement
+    button: HTMLButtonElement
+}
+
 export class ContactsFormView extends Component<IContactsFormView> {
 	protected element: HTMLElement;
 	protected formEmail: HTMLFormElement;
