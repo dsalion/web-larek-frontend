@@ -1,6 +1,6 @@
 import './scss/styles.scss';
 import { Card } from './components/Cardview';
-import { ApiHelper } from './components/common/apiHelper';
+import { ApiHelper } from './components/apiHelper';
 import { CDN_URL, API_URL } from './utils/constants';
 import { IProductCard } from './types';
 import { CardsData } from './components/CardsData';

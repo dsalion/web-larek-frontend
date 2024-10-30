@@ -1,6 +1,6 @@
-import { Api, ApiListResponse } from '../base/api';
-import { IProductCard } from '../../types';
-import { IOrderDataPost, IOrderResponse } from '../../types';
+import { Api, ApiListResponse } from './base/api';
+import { IProductCard } from '../types';
+import { IOrderDataPost, IOrderResponse } from '../types';
 
 interface IProductCardApi {
 	getCards: () => Promise<IProductCard[]>;
