@@ -10,7 +10,7 @@ interface CardPreview {
 	price: number;
 }
 
-export class PreviewCard extends Card {
+export class PreviewCard extends Component<CardPreview> {
 	protected _category: HTMLElement;
 	protected _title: HTMLElement;
 	protected _description: HTMLElement;
@@ -21,7 +21,7 @@ export class PreviewCard extends Card {
 	protected _id: string;
 
 	constructor(container: HTMLTemplateElement, events: IEvents) {
-		super(container, events);
+		super(container);
 		this.events = events;
 		this._category = container.querySelector('.card__category');
 		this._title = container.querySelector('.card__title');

@@ -15,6 +15,7 @@ export class BasketView extends Component<IBasket> {
 	protected events: IEvents;
 	protected basketData: BasketData;
 	protected _emptyText: HTMLElement;
+	protected element: HTMLElement
 
 	constructor(
 		template: HTMLTemplateElement,
@@ -24,6 +25,7 @@ export class BasketView extends Component<IBasket> {
 		super(template);
 		this.events = events;
 		this.basketData = basketData;
+		this.element = template;
 
 		this._cards = template.querySelector('.basket__list');
 		this._button = template.querySelector('.basket__button');

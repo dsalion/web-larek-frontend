@@ -19,7 +19,7 @@ export class ContactsFormView extends Component<IContactsFormView> {
 	constructor(container: HTMLElement, events: IEvents) {
 		super(container);
 		this.events = events;
-
+		this.element = container;
 		this.formEmail = this.container.querySelector('.form__input[name="email"]');
 		this.formEmail.addEventListener('input', this.emailValidate.bind(this));
 		this.formPhone = this.container.querySelector('.form__input[name="phone"]');
@@ -27,7 +27,7 @@ export class ContactsFormView extends Component<IContactsFormView> {
 		this.errorEmail = this.container.querySelector('.form__error_email');
 		this.errorPhone = this.container.querySelector('.form__error_phone');
 		this.button = this.container.querySelector('.button');
-		this.button.addEventListener('click', (event) => {
+		this.element.addEventListener('submit', (event) => {
 			event.preventDefault();
 			this.events.emit('contacts:submit', {
 				email: this.formEmail.value,

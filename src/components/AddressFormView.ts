@@ -16,11 +16,13 @@ export class FormsView extends Component<IAddressFormView> {
 	protected _buttonSubmit: HTMLButtonElement;
 	protected events: IEvents;
 	protected errors: HTMLSpanElement;
+	
 
 	constructor(container: HTMLElement, events: IEvents) {
 		super(container);
 		this.events = events;
 
+		this.element = container;
 		this._address = this.container.querySelector(
 			'.form__input'
 		) as HTMLInputElement;
@@ -46,8 +48,9 @@ export class FormsView extends Component<IAddressFormView> {
 		this._buttonSubmit = this.container.querySelector(
 			'.order__button'
 		) as HTMLButtonElement;
-		this._buttonSubmit.addEventListener('click', (event) => {
+		this.element.addEventListener('submit', (event) => {
 			event.preventDefault();
+			console.log(event)
 			this.events.emit('addressform:submit', { address: this._address.value });
 		});
 	}

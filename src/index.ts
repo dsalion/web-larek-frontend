@@ -16,6 +16,7 @@ import { cloneTemplate } from './utils/utils';
 import { ContactsFormView } from './components/ContactsFormView';
 import { address, contacts, IOrderResponse } from './types';
 import { SuccessOrder } from './components/SuccesOrderView';
+import { Page } from './components/Page';
 
 const api = new ApiHelper(CDN_URL, API_URL);
 const events: IEvents = new EventEmitter();
@@ -25,10 +26,11 @@ const templateBasket = document.querySelector('.basket') as HTMLTemplateElement;
 const cardArray = new CardsData(events);
 const modal = new Modal(ensureElement<HTMLElement>('#modal-container'), events);
 const previewcard = new PreviewCard(
-	ensureElement<HTMLElement>('.card_full'),
+	ensureElement<HTMLTemplateElement>('.card_full'),
 	events
 );
-const pagelock = document.querySelector('.page__wrapper');
+const pageView = document.querySelector('.page');
+const page = new Page(pageView as HTMLElement);
 const basket = new BasketData(events);
 const iconBasket = document.querySelector('.header__basket');
 const basketView = new BasketView(templateBasket, events, basket);
@@ -94,24 +96,24 @@ events.on('cards:chosen', (card: IProductCard) => {
 
 
 events.on('modal:open', () => {
-	pagelock.classList.add('page__wrapper_locked');
+	page.locked = true;
 });
 
 
 events.on('modal:close', () => {
-	pagelock.classList.remove('page__wrapper_locked');
+	page.locked = false;
 });
 
 
 events.on('product:addedtobasket', (data: IProductCard) => {
 	const chosenCard = cardArray.getCard(data.id);
 	basket.addToBasket(chosenCard);
-	headerBasketContent.textContent = basket.products.length.toString();
+	page.basketCounter = basket.products.length.toString();
 });
 
 
 events.on('basket:delItem', () => {
-	headerBasketContent.textContent = basket.products.length.toString();
+	page.basketCounter = basket.products.length.toString();
 });
 
 
