@@ -61,17 +61,17 @@ export class BasketView extends Component<IBasket> {
 		if (this.basketData.products.length) {
 			this.basketData.products.forEach((product) => {
 				this._cards.innerHTML += this.createCardHTML(product);
-				this._button.textContent = 'Оформить';
+				this.setText(this._button, 'Оформить') 
 				this._button.disabled = false;
 			});
 			this._emptyText.style.display = 'none';
 		} else {
-			this._emptyText.textContent = 'Корзина пуста';
+			this.setText(this._emptyText,'Корзина пуста' ) 
 			this._emptyText.style.display = 'block';
-			this._button.textContent = 'Добавьте товары в корзину';
+			this.setText(this._button, 'Добавьте товары в корзину') 
 			this._button.disabled = true;
 		}
-		this._total.textContent = `${this.basketData.getSum()} синапсов`;
+		this.setText(this._total, `${this.basketData.getSum()} синапсов` ) 
 
 		const deleteButtons = this._cards.querySelectorAll('.basket__item-delete');
 		deleteButtons.forEach((button, index) => {
@@ -82,7 +82,7 @@ export class BasketView extends Component<IBasket> {
 	}
 
 	set total(value: string) {
-		this._total.textContent = value;
+		this.setText(this._total, value) 
 	}
 
 	set cards(value: HTMLUListElement) {
@@ -95,50 +95,3 @@ export class BasketView extends Component<IBasket> {
 	}
 }
 
-/*  export class BasketView extends Component<IBasketView> {
-
-    protected _element: HTMLElement
-    protected _cards: HTMLUListElement
-    protected _button: HTMLButtonElement
-    protected _total: HTMLElement
-    protected events: IEvents
-
-    constructor(template: HTMLTemplateElement, events: IEvents ) {
-        super(template)
-        this.events = events
-       
-        this._cards = template.querySelector('.basket__list')
-        this._button = template.querySelector('.basket__button')
-        this._total = template.querySelector('.basket__price')
-        
-        this._button.addEventListener('click', () => {
-
-            this.events.emit('basket:addedToOrder')})
-        
-            
-        }
-
-        set total(value: string) {
-            this._total.textContent = value
-        } 
-    
-        set cards(value: HTMLUListElement) {
-            this._cards.replaceChildren(value)
-        }
-    
-        
-    }
-    
-    export class BasketItemView extends Component<IBasketView> {
-    
-        protected _element: HTMLElement
-        protected events: IEvents
-    
-        constructor(template: HTMLTemplateElement, events: IEvents) {
-            super(template)
-            this.events = events
-            this._element = template.content.querySelector('.basket__item').cloneNode(true) as HTMLElement;
-        }
-    } 
-    
-  */

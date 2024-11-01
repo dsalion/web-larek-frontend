@@ -40,10 +40,9 @@ export class Card extends Component<IProductCard> {
 	}
 
 	render(data: ICard) {
-		this.title.textContent = data.title;
-		this.price.textContent =
-			data.price !== null ? `${data.price} Cинапсов` : 'Бесценно';
-		this._category.textContent = data.category;
+		this.setText(this.title,  data.title)
+		this.setText(this.price, data.price !== null ? `${data.price} Cинапсов` : 'Бесценно')
+		this.setText(this._category,  data.category)
 		this.image.setAttribute('src', data.image);
 		this.id = data.id;
 		this.category = data.category;

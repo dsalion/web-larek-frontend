@@ -60,9 +60,9 @@ export class FormsView extends Component<IAddressFormView> {
 
 		if (addressValue.length === 0) {
 			this._buttonSubmit.disabled = true;
-			this.errors.textContent = 'Заполните адресс доставки';
+			this.setText(this.errors, 'Заполните адресс доставки') 
 		} else {
-			this.errors.textContent = '';
+			this.setText(this.errors, '');
 			this._buttonSubmit.disabled = false;
 		}
 	}

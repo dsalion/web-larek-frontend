@@ -36,15 +36,15 @@ export class PreviewCard extends Component<CardPreview> {
 	}
 
 	set description(value: string) {
-		this._description.textContent = value;
+		this.setText(this._description, value) 
 	}
 
 	set title(value: string) {
-		this._title.textContent = value;
+		this.setText(this._title, value) 
 	}
 
 	set category(value: string) {
-		this._category.textContent = value;
+		this.setText(this._category, value) 
 		switch (value) {
 			case 'софт-скил':
 				this._category.classList.remove('card__category_other');
@@ -70,7 +70,7 @@ export class PreviewCard extends Component<CardPreview> {
 		value !== null
 			? (this._button.disabled = false)
 			: (this._button.disabled = true);
-		this._price.textContent = value !== null ? `${value} Cинапсов` : 'Бесценно';
+		this.setText(this._price, value !== null ? `${value} Cинапсов` : 'Бесценно' )
 	}
 
 	set image(value: string) {

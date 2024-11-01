@@ -7,6 +7,13 @@ interface IContactsFormView {
     button: HTMLButtonElement
 }
 
+/*export class ContactsFormView extends Form<> {
+	
+}*/
+
+
+
+
 export class ContactsFormView extends Component<IContactsFormView> {
 	protected element: HTMLElement;
 	protected formEmail: HTMLFormElement;
@@ -39,9 +46,9 @@ export class ContactsFormView extends Component<IContactsFormView> {
 	emailValidate(): void {
 		const emailValue = this.formEmail.value;
 		if (emailValue.length === 0) {
-			this.errorEmail.textContent = 'Заполните email';
+			this.setText(this.errorEmail,'Заполните email' ) 
 		} else {
-			this.errorEmail.textContent = '';
+			this.setText(this.errorEmail,'' ) ;
 		}
 		this.chekValidation();
 	}
@@ -49,9 +56,9 @@ export class ContactsFormView extends Component<IContactsFormView> {
 	phoneValidate(): void {
 		const phoneValue = this.formPhone.value;
 		if (phoneValue.length === 0) {
-			this.errorPhone.textContent = 'Заполните телефон';
+			this.setText(this.errorPhone,'Заполните номер телефона' ) 
 		} else {
-			this.errorPhone.textContent = '';
+			this.setText(this.errorPhone,'' ) ;
 		}
 		this.chekValidation();
 	}

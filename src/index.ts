@@ -42,8 +42,7 @@ const formAddress = new FormsView(
 	events
 );
 const contactsTemplate = document.getElementById('contacts');
-const formContacts = new ContactsFormView(
-	cloneTemplate(contactsTemplate as HTMLTemplateElement),
+const formContacts = new ContactsFormView(cloneTemplate(contactsTemplate as HTMLTemplateElement),
 	events
 );
 const successTemplate = document.getElementById('success');
@@ -157,7 +156,7 @@ events.on('contacts:submit', (data: contacts) => {
 		.then((data: IOrderResponse) => {
 			console.log('заказ оформлен. ID:', data.id);
 			basket.clear();
-			headerBasketContent.textContent = basket.products.length.toString();
+			page.basketCounter = basket.products.length.toString();
 			basketView.updateList();
 			order.clear();
 			order.totalResponse = data.total;
