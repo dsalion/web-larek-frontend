@@ -1,5 +1,6 @@
 import { Component } from './base/Component';
 import { IEvents } from './base/events';
+import { Card } from './Cardview';
 interface CardPreview {
 	id: string;
 	title: string;
@@ -9,7 +10,7 @@ interface CardPreview {
 	price: number;
 }
 
-export class PreviewCard extends Component<CardPreview> {
+export class PreviewCard extends Card {
 	protected _category: HTMLElement;
 	protected _title: HTMLElement;
 	protected _description: HTMLElement;
@@ -19,8 +20,8 @@ export class PreviewCard extends Component<CardPreview> {
 	protected events: IEvents;
 	protected _id: string;
 
-	constructor(container: HTMLElement, events: IEvents) {
-		super(container);
+	constructor(container: HTMLTemplateElement, events: IEvents) {
+		super(container, events);
 		this.events = events;
 		this._category = container.querySelector('.card__category');
 		this._title = container.querySelector('.card__title');

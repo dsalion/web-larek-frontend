@@ -46,7 +46,7 @@ export class FormsView extends Component<IAddressFormView> {
 		this._buttonSubmit = this.container.querySelector(
 			'.order__button'
 		) as HTMLButtonElement;
-		this._buttonSubmit.addEventListener('click', () => {
+		this._buttonSubmit.addEventListener('click', (event) => {
 			event.preventDefault();
 			this.events.emit('addressform:submit', { address: this._address.value });
 		});
