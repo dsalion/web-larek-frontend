@@ -124,6 +124,14 @@ export interface IOrderResponse {
 - `emit` - инициализация события
 - `trigger` - возвращает функцию, при вызове которой инициализируется требуемое в параметрах событие   
 
+#### Класс ApiHelper 
+Класс наследуется от класса Api. Конструктор класса `constructor(cdn: string, baseUrl: string, options?: RequestInit)` принимает url для картинок, базовый url для данных  и глобальные опции для всех запросов(опционально). 
+поля класса:
+ - cdn: string; - для хранения ссылки на контент
+Методы класса: 
+- getCards(): Promise<IProductCard[]> - для получения массива карточек товаров и преобразования их 
+- sendOrder(data: IOrderDataPost): Promise<IOrderResponse> - для отправки заказа на сервер. 
+
 ### Слой данных
 
 #### Класс CardsData

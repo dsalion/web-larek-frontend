@@ -4,6 +4,7 @@ import { IOrderDataPost, IOrderResponse } from '../types';
 
 interface IProductCardApi {
 	getCards: () => Promise<IProductCard[]>;
+	sendOrder: (data: IOrderDataPost) => Promise<IOrderResponse>;
 }
 
 export class ApiHelper extends Api implements IProductCardApi {
