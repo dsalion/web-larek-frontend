@@ -21,15 +21,14 @@ import { Page } from './components/Page';
 const api = new ApiHelper(CDN_URL, API_URL);
 const events: IEvents = new EventEmitter();
 const template = document.getElementById('card-catalog') as HTMLTemplateElement;
-const previewtemplate = document.getElementById('card-preview') as HTMLTemplateElement;
+const previewtemplate = document.getElementById(
+	'card-preview'
+) as HTMLTemplateElement;
 const cardContainer = document.querySelector('.gallery') as HTMLElement;
 const templateBasket = document.querySelector('.basket') as HTMLTemplateElement;
 const cardArray = new CardsData(events);
 const modal = new Modal(ensureElement<HTMLElement>('#modal-container'), events);
-const previewcard = new PreviewCard(
-	previewtemplate,
-	events
-);
+const previewcard = new PreviewCard(previewtemplate, events);
 const pageView = document.querySelector('.page');
 const page = new Page(pageView as HTMLElement);
 const basket = new BasketData(events);
@@ -43,7 +42,8 @@ const formAddress = new FormsView(
 	events
 );
 const contactsTemplate = document.getElementById('contacts');
-const formContacts = new ContactsFormView(cloneTemplate(contactsTemplate as HTMLTemplateElement),
+const formContacts = new ContactsFormView(
+	cloneTemplate(contactsTemplate as HTMLTemplateElement),
 	events
 );
 const successTemplate = document.getElementById('success');
@@ -51,8 +51,6 @@ const successOrder = new SuccessOrder(
 	cloneTemplate(successTemplate as HTMLTemplateElement),
 	events
 );
-
-
 
 api
 	.getCards()
@@ -62,7 +60,6 @@ api
 	.catch((error) => {
 		console.log(error);
 	});
-
 
 events.on('cards:added', () => {
 	const cards = cardArray.cards;
@@ -74,12 +71,10 @@ events.on('cards:added', () => {
 			category: item.category,
 			image: item.image,
 			id: item.id,
-			
 		});
 		cardContainer.appendChild(cardElement);
 	});
 });
-
 
 events.on('cards:chosen', (card: IProductCard) => {
 	const chosenCard = cardArray.getCard(card.id);
@@ -96,29 +91,24 @@ events.on('cards:chosen', (card: IProductCard) => {
 	});
 });
 
-
 events.on('modal:open', () => {
 	page.locked = true;
 });
-
 
 events.on('modal:close', () => {
 	page.locked = false;
 });
 
-
 events.on('product:addedtobasket', (data: IProductCard) => {
 	const chosenCard = cardArray.getCard(data.id);
-	console.log(123,chosenCard)
+	console.log(123, chosenCard);
 	basket.addToBasket(chosenCard);
 	page.basketCounter = basket.products.length.toString();
 });
 
-
 events.on('basket:delItem', () => {
 	page.basketCounter = basket.products.length.toString();
 });
-
 
 iconBasket.addEventListener('click', () => {
 	modal.render({
@@ -126,33 +116,34 @@ iconBasket.addEventListener('click', () => {
 	});
 });
 
-
 events.on('basket:addedToOrder', (data: IProductCard[]) => {
 	order.items = basket.convertToArrayId(data);
 	order.total = basket.getSum();
 	modal.close();
-	modal.render({ content: formAddress.render() });
+	modal.render({ content: formAddress.render({ valid: false, errors: [] }) });
 });
-
 
 events.on('addressform:online', () => {
 	order.payment = 'online';
 });
 
-
 events.on('addressform:offline', () => {
 	order.payment = 'offline';
 });
 
-
-events.on('addressform:submit', (data: address) => {
+events.on('order:submit', (data: address) => {
 	order.address = data.address;
 	modal.close();
-	modal.render({ content: formContacts.render() });
+	modal.render({
+		content: formContacts.render({
+			valid: false,
+			errors: [],
+		}),
+	});
 });
 
-
 events.on('contacts:submit', (data: contacts) => {
+	console.log(777,data);
 	order.email = data.email;
 	order.phone = data.phone;
 	api
@@ -172,7 +163,6 @@ events.on('contacts:submit', (data: contacts) => {
 			console.log('заказ не отправлен. Ошибка:', error);
 		});
 });
-
 
 events.on('order:success', () => {
 	modal.close();

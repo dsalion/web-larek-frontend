@@ -3,7 +3,7 @@ import { ensureElement } from "../utils/utils";
 import { IEvents } from "./base/events";
 
 
-    interface IFormState {
+    export interface IFormState {
         valid: boolean;
         errors: string[];
     }
@@ -25,10 +25,11 @@ import { IEvents } from "./base/events";
                 this.onInputChange(field, value);
             });
     
-            this.container.addEventListener('submit', (e: Event) => {
+           /* this.container.addEventListener('submit', (e: Event) => {
                 e.preventDefault();
-                this.events.emit(`${this.container.name}:submit`);
-            });
+                this.events.emit(`${this.container.name}:submit`)
+                console.log(888,`${this.container.name}`);
+            }); */
         }
     
         protected onInputChange(field: keyof T, value: string) {
@@ -37,7 +38,10 @@ import { IEvents } from "./base/events";
                 value
             });
         }
-    
+        
+        onSubmit<T extends object>(data: T) {
+            this.events.emit(`${this.container.name}:submit`, data);
+        }
         set valid(value: boolean) {
             this._submit.disabled = !value;
         }
