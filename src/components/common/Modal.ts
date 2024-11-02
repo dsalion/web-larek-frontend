@@ -20,7 +20,7 @@ export class Modal extends Component<IModalData> {
             this.close();
         }
     };
-
+	
     this._closeButton.addEventListener('click', () => this.close());
     this.container.addEventListener('click', handleOverlayClick);
     this._content.addEventListener('click', (event) => event.stopPropagation());

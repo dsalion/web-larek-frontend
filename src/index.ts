@@ -20,13 +20,14 @@ import { Page } from './components/Page';
 
 const api = new ApiHelper(CDN_URL, API_URL);
 const events: IEvents = new EventEmitter();
-const template = document.querySelector('#card-catalog') as HTMLTemplateElement;
+const template = document.getElementById('card-catalog') as HTMLTemplateElement;
+const previewtemplate = document.getElementById('card-preview') as HTMLTemplateElement;
 const cardContainer = document.querySelector('.gallery') as HTMLElement;
 const templateBasket = document.querySelector('.basket') as HTMLTemplateElement;
 const cardArray = new CardsData(events);
 const modal = new Modal(ensureElement<HTMLElement>('#modal-container'), events);
 const previewcard = new PreviewCard(
-	ensureElement<HTMLTemplateElement>('.card_full'),
+	previewtemplate,
 	events
 );
 const pageView = document.querySelector('.page');
@@ -73,6 +74,7 @@ events.on('cards:added', () => {
 			category: item.category,
 			image: item.image,
 			id: item.id,
+			
 		});
 		cardContainer.appendChild(cardElement);
 	});
@@ -81,6 +83,7 @@ events.on('cards:added', () => {
 
 events.on('cards:chosen', (card: IProductCard) => {
 	const chosenCard = cardArray.getCard(card.id);
+
 	modal.render({
 		content: previewcard.render({
 			title: chosenCard.title,
@@ -106,6 +109,7 @@ events.on('modal:close', () => {
 
 events.on('product:addedtobasket', (data: IProductCard) => {
 	const chosenCard = cardArray.getCard(data.id);
+	console.log(123,chosenCard)
 	basket.addToBasket(chosenCard);
 	page.basketCounter = basket.products.length.toString();
 });
