@@ -1,18 +1,11 @@
 import { IEvents } from './base/events';
-import { Form, IFormState } from './Form';
+import { Form, IFormState } from './common/Form';
 
 interface IContactsFormView {
     formEmail: HTMLFormElement
     formPhone: HTMLFormElement
     button: HTMLButtonElement
 }
-
-/*export class ContactsFormView extends Form<> {
-	
-}*/
-
-
-
 
 export class ContactsFormView extends Form<IContactsFormView> {
 	protected formEmail: HTMLFormElement;
@@ -34,11 +27,7 @@ export class ContactsFormView extends Form<IContactsFormView> {
 			
 			event.preventDefault();
 			super.onSubmit({email: this.formEmail.value, phone: this.formPhone.value});
-			/*console.log(555, {email: this.formEmail.value, phone: this.formPhone.value});
-			this.events.emit('contacts:submit', {
-				email: this.formEmail.value,
-				phone: this.formPhone.value,
-			});*/
+			
 		});
 	}
 

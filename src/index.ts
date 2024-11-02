@@ -30,11 +30,10 @@ const cardArray = new CardsData(events);
 const modal = new Modal(ensureElement<HTMLElement>('#modal-container'), events);
 const previewcard = new PreviewCard(previewtemplate, events);
 const pageView = document.querySelector('.page');
-const page = new Page(pageView as HTMLElement);
+const page = new Page(pageView as HTMLElement, events);
 const basket = new BasketData(events);
 const iconBasket = document.querySelector('.header__basket');
 const basketView = new BasketView(templateBasket, events, basket);
-const headerBasketContent = document.querySelector('.header__basket-counter');
 const order = new OrderData(events);
 const addressTemplate = document.getElementById('order');
 const formAddress = new FormsView(
@@ -101,7 +100,6 @@ events.on('modal:close', () => {
 
 events.on('product:addedtobasket', (data: IProductCard) => {
 	const chosenCard = cardArray.getCard(data.id);
-	console.log(123, chosenCard);
 	basket.addToBasket(chosenCard);
 	page.basketCounter = basket.products.length.toString();
 });
@@ -110,7 +108,7 @@ events.on('basket:delItem', () => {
 	page.basketCounter = basket.products.length.toString();
 });
 
-iconBasket.addEventListener('click', () => {
+events.on('basket:open', () => {
 	modal.render({
 		content: basketView.render(),
 	});
@@ -143,7 +141,6 @@ events.on('order:submit', (data: address) => {
 });
 
 events.on('contacts:submit', (data: contacts) => {
-	console.log(777,data);
 	order.email = data.email;
 	order.phone = data.phone;
 	api

@@ -62,14 +62,14 @@ export class BasketView extends Component<IBasket> {
 			this.basketData.products.forEach((product) => {
 				this._cards.innerHTML += this.createCardHTML(product);
 				this.setText(this._button, 'Оформить') 
-				this._button.disabled = false;
+				this.setDisabled(this._button, false);
 			});
 			this._emptyText.style.display = 'none';
 		} else {
 			this.setText(this._emptyText,'Корзина пуста' ) 
 			this._emptyText.style.display = 'block';
 			this.setText(this._button, 'Добавьте товары в корзину') 
-			this._button.disabled = true;
+			this.setDisabled(this._button, true);
 		}
 		this.setText(this._total, `${this.basketData.getSum()} синапсов` ) 
 
